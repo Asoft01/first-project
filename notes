@@ -1,1 +1,3 @@
 npm i nodemon -D
+installing globally 
+npm i -g nodemon
