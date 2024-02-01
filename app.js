@@ -166,3 +166,38 @@
 // server.listen(5000, () => {
 //     console.log('Server listening on port : 5000...'); 
 // })
+
+/////////////////////////////////////////////////////////////////////////////
+// const http = require('http'); 
+
+// const server = http.createServer((req, res) => {
+//     if(req.url === '/') {
+//         res.end('Home Page')
+//     }
+
+//     if(req.url === '/about') {
+//         res.end('About Page')
+//     }
+//     res.end('Error Page')
+// });
+
+// server.listen(5000, () =>  {
+//     console.log('Server listening on port 5000');
+// })
+
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+    if (req.url === '/') {
+        res.end('Home Page');
+    } else if (req.url === '/about') {
+        res.end('About Page');
+    } else {
+        res.writeHead(404, {'Content-Type': 'text/plain'});
+        res.end('Not Found');
+    }
+});
+
+server.listen(5000, () => {
+    console.log('Server listening on port 5000');
+});
