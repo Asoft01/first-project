@@ -184,20 +184,59 @@
 // server.listen(5000, () =>  {
 //     console.log('Server listening on port 5000');
 // })
+/////////////////////////////////////// ASYNCHRONOUS WAY //////////////////////////////////////
+// const http = require('http');
 
-const http = require('http');
+// const server = http.createServer((req, res) => {
+//     if (req.url === '/') {
+//         res.end('Home Page');
+//     } else if (req.url === '/about') {
+//         // BLOCKING CODE!!!
+//         for(let i = 0; i< 1000; i++) {
+//             for(let j = 0; j < 1000; j++) {
+//                 console.log(`${i} ${j}`);
+//             }
+//         }
+//         res.end('About Page');
+//     } else {
+//         res.writeHead(404, {'Content-Type': 'text/plain'});
+//         res.end('Not Found');
+//     }
+// });
 
-const server = http.createServer((req, res) => {
-    if (req.url === '/') {
-        res.end('Home Page');
-    } else if (req.url === '/about') {
-        res.end('About Page');
-    } else {
-        res.writeHead(404, {'Content-Type': 'text/plain'});
-        res.end('Not Found');
-    }
-});
+// server.listen(5000, () => {
+//     console.log('Server listening on port 5000');
+// });
 
-server.listen(5000, () => {
-    console.log('Server listening on port 5000');
-});
+/////////////////////////////////////////////////////////////////////////////////////////////
+// const { readFile } = require('fs'); 
+
+// readFile('./content/first.txt', 'utf8', (err, data) => {
+//     if(err) {
+//         return 
+//     }else{ 
+//         console.log(data);
+//     }
+// });
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+const { readFile } = require('fs'); 
+
+const getText = (path) => {
+    return new Promise((resolve, reject) => {
+        readFile('./content/first.txt', 'utf8', (err, data) => {
+            if(err) {
+                // return 
+                reject(err);
+            }else {
+                // console.log(data); 
+                resolve(data);
+            }
+        });       
+    });
+}
+
+getText('../content/first.txt')
+    .then((result) => console.log(result))
+    .catch((err) => console.log(err));
